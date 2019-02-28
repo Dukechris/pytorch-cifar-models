@@ -7,6 +7,54 @@ from torch.autograd import Variable
 import math
 
 
+# def get_average(list):
+def get_average(num):
+    sum = 0
+    for i in range(len(num)):
+        sum += num[i]
+    return sum/len(num)
+ 
+ 
+
+def get_range(num):
+    return max(num) - min(num)
+ 
+ 
+
+def mediannum(num):
+    listnum = [num[i] for i in range(len(num))]
+    listnum.sort()
+    lnum = len(num)
+    if lnum % 2 == 1:
+        i = int((lnum + 1) / 2)-1
+        return listnum[i]
+    else:
+        i = int(lnum / 2)-1
+        return (listnum[i] + listnum[i + 1]) / 2
+ 
+
+def get_variance(num):
+    sum = 0
+    average = get_average(num)
+    for i in range(len(num)):
+        sum += (num[i] - average)**2
+    return sum/len(num)
+ 
+
+def get_stddev(num):
+    average = get_average(num)
+    sdsq = sum( [(num[i] - average) ** 2 for i in range(len(num))] )
+    stdev = (sdsq / (len(num) - 1)) ** .5
+    return stdev
+ 
+
+def get_n_moment(num,n):
+    sum = 0
+    for i in ange(len(num)):
+        sum += num[i]**n
+    return sum/len(num)
+
+
 
 
 

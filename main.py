@@ -285,10 +285,12 @@ def adjust_learning_rate(optimizer, epoch, model_type):
     if model_type == 1:
         if epoch < 80:
             lr = args.lr
-        elif epoch < 120:
+        elif epoch < 160:
             lr = args.lr * 0.1
-        else:
+        elif epoch < 240:
             lr = args.lr * 0.01
+        else:
+            lr = args.lr * 0.001
     elif model_type == 2:
         if epoch < 60:
             lr = args.lr

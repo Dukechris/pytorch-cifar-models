@@ -207,7 +207,7 @@ def train(trainloader, model, criterion, optimizer, epoch):
         input, target = input.cuda(), target.cuda()
 
         # compute output
-        output = model(input)
+        output = model(input, target)
         loss = criterion(output, target)
 
         # measure accuracy and record loss
@@ -248,7 +248,7 @@ def validate(val_loader, model, criterion):
             input, target = input.cuda(), target.cuda()
 
             # compute output
-            output = model(input)
+            output = model(input, target)
             loss = criterion(output, target)
 
             # measure accuracy and record loss

@@ -73,7 +73,7 @@ class PureKernalMetricLogits(nn.Module):
         diff = torch.unsqueeze(self.weights, dim=0) - torch.unsqueeze(feat, dim=1)
         diff = torch.mul(diff, diff)
         metric = torch.sum(diff, dim=-1)
-        kernal_metric = torch.exp(-1.0 * metric / 2)
+        kernal_metric = torch.exp(-1.0 * metric / 1.6)
         # Corresponding kernal metric calculating
         cor_metrics = []
         for i in range(kernal_metric.size(0)):
@@ -85,7 +85,7 @@ class PureKernalMetricLogits(nn.Module):
             avg_distance = 0.5
         self.scale = (1.0/avg_distance) * math.log(self.class_num-1.0) #(get_average(Bs))
         # Return data
-        train_logits = 1.3 * self.scale * kernal_metric
+        train_logits = 2 * self.scale * kernal_metric
         # return train_logits, kernal_metric
         return train_logits
 

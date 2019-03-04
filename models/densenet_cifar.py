@@ -89,7 +89,8 @@ class DenseNet_Cifar(nn.Module):
         self.features.add_module('norm5', nn.BatchNorm2d(num_features))
 
         # Linear layer
-        self.classifier = nn.Linear(num_features, num_classes)
+        # self.classifier = nn.Linear(num_features, num_classes)
+        self.classifier = AdvanceLoss.PureKernalMetricLogits(num_features, num_classes)
         
         # initialize conv and bn parameters
         for m in self.modules():
@@ -100,11 +101,11 @@ class DenseNet_Cifar(nn.Module):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
 
-    def forward(self, x):
+    def forward(self, x, label):
         features = self.features(x)
         out = F.relu(features, inplace=True)
         out = F.avg_pool2d(out, kernel_size=8, stride=1).view(features.size(0), -1)
-        out = self.classifier(out)
+        out = self.classifier(out, label)
         return out
 
 

@@ -41,7 +41,8 @@ def main():
         # model can be set to anyone that I have defined in models folder
         # note the model should match to the cifar type !
 
-        model = resnet20_cifar()
+        # model = resnet20_cifar()
+
         # model = resnet32_cifar()
         # model = resnet44_cifar()
         # model = resnet110_cifar()
@@ -55,7 +56,7 @@ def main():
 
         # model = resneXt_cifar(depth=29, cardinality=16, baseWidth=64, num_classes=100)
         
-        #model = densenet_BC_cifar(depth=190, k=40, num_classes=100)
+        model = densenet_BC_cifar(depth=100, k=12, num_classes=10)
 
         # mkdir a new folder to store the checkpoint and best model
         if not os.path.exists('result'):

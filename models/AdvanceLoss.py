@@ -82,13 +82,14 @@ class PureKernalMetricLogits(nn.Module):
             cor_metrics.append(distance)
         avg_distance = get_average(cor_metrics)
         var_distance = get_variance(cor_metrics)
+        print('The average corresponding metric is {:.4f}'.format(avg_distance))
+        print('The variance metric is {:.4f}'.format(var_distance))
         if avg_distance < 0.5:
             avg_distance = 0.5
         self.scale = (1.0/avg_distance) * math.log(self.class_num-1.0) #(get_average(Bs))
         # Return data
         train_logits = 3.0 * self.scale * kernal_metric
-        print('The average corresponding metric is {:.4f}'.format(avg_distance))
-        print('The variance metric is {:.4f}'.format(var_distance))
+
         # return train_logits, kernal_metric
         return train_logits
 

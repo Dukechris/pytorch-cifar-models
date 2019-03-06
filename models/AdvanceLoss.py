@@ -88,8 +88,8 @@ class PureKernalMetricLogits(nn.Module):
         var_k_distance = get_variance(cor_metrics)
         avg_e_distance = get_average(cor_eu_metrics)
         var_e_distance = get_variance(cor_eu_metrics)
-        print('The average corresponding metric is {:.4f}'.format(avg_distance))
-        print('The variance metric is {:.4f}'.format(var_distance))
+        print('The average corresponding metric is {:.4f}'.format(avg_k_distance))
+        print('The variance metric is {:.4f}'.format(var_k_distance))
         print('The average corresponding eu metric is {:.4f}'.format(avg_e_distance))
         print('The variance metric eu is {:.4f}'.format(var_e_distance))
         if avg_distance < 0.5:

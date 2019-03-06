@@ -123,9 +123,10 @@ class VarKernalMetricLogits(nn.Module):
             label_i = int(label[i])
             distance = metric[i, label_i].item()
             cor_eu_metrics.append(distance)
-        var_e_distance = get_variance(cor_eu_metrics)
+        # var_e_distance = get_variance(cor_eu_metrics)
+        std_e_distance = get_stddev(cor_eu_metrics)
 
-        kernal_metric = torch.exp(-1.0 * metric / var_e_distance)
+        kernal_metric = torch.exp(-1.0 * metric / std_e_distance)
         # Corresponding kernal metric calculating
         cor_metrics = []
         for i in range(kernal_metric.size(0)):

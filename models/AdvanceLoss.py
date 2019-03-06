@@ -76,14 +76,22 @@ class PureKernalMetricLogits(nn.Module):
         kernal_metric = torch.exp(-1.0 * metric / 1.2)
         # Corresponding kernal metric calculating
         cor_metrics = []
+        # Corresponding Euchlidean metric 
+        cor_eu_metrics = []
         for i in range(kernal_metric.size(0)):
             label_i = int(label[i])
             distance = kernal_metric[i, label_i].item()
             cor_metrics.append(distance)
-        avg_distance = get_average(cor_metrics)
-        var_distance = get_variance(cor_metrics)
+            distance = metric[i, label_i].item()
+            cor_eu_metrics.append(distance)
+        avg_k_distance = get_average(cor_metrics)
+        var_k_distance = get_variance(cor_metrics)
+        avg_e_distance = get_average(cor_eu_metrics)
+        var_e_distance = get_variance(cor_eu_metrics)
         print('The average corresponding metric is {:.4f}'.format(avg_distance))
         print('The variance metric is {:.4f}'.format(var_distance))
+        print('The average corresponding eu metric is {:.4f}'.format(avg_e_distance))
+        print('The variance metric eu is {:.4f}'.format(var_e_distance))
         if avg_distance < 0.5:
             avg_distance = 0.5
         self.scale = (1.0/avg_distance) * math.log(self.class_num-1.0) #(get_average(Bs))

@@ -144,7 +144,7 @@ class VarKernalMetricLogits(nn.Module):
         # Return data
         train_logits = 3.0 * self.scale * kernal_metric
 
-        # return train_logits, kernal_metric
-        return train_logits
+        return train_logits, kernal_metric
+        # return train_logits
 
 

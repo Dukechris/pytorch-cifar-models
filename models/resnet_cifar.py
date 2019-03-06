@@ -210,7 +210,8 @@ class ResNet_Cifar(nn.Module):
         x = self.avgpool(x)
         x = x.view(x.size(0), -1)
         # x = self.fc(x)
-        x = self.fc(x, label)
+        # x = self.fc(x, label)
+        x, test_logits = self.fc(x, label)
 
         return x
 

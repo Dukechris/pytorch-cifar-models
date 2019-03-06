@@ -172,7 +172,7 @@ class ResNet_Cifar(nn.Module):
         self.avgpool = nn.AvgPool2d(8, stride=1)
         # self.fc = nn.Linear(64 * block.expansion, num_classes)
         # self.fc = AdvanceLoss.PureKernalMetricLogits(64 * block.expansion, num_classes)
-        self.fc = AdvanceLoss.VarPureKernalMetricLogits(64 * block.expansion, num_classes)
+        self.fc = AdvanceLoss.VarKernalMetricLogits(64 * block.expansion, num_classes)
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):

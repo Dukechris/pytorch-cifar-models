@@ -213,7 +213,7 @@ class ResNet_Cifar(nn.Module):
         # x = self.fc(x, label)
         x, test_logits = self.fc(x, label)
 
-        return x
+        return x, test_logits
 
 
 class PreAct_ResNet_Cifar(nn.Module):

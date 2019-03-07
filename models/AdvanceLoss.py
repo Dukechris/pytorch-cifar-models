@@ -121,12 +121,22 @@ class VarKernalMetricLogits(nn.Module):
         cor_eu_metrics = []
         for i in range(metric.size(0)):
             label_i = int(label[i])
-            distance = metric[i, label_i].item()
+            distance = torch.sqrt(metric[i, label_i]).item()
             cor_eu_metrics.append(distance)
-        # var_e_distance = get_variance(cor_eu_metrics)
-        std_e_distance = get_stddev(cor_eu_metrics)
 
-        kernal_metric = torch.exp(-1.0 * metric / std_e_distance)
+        # 计算对应类别的原是距离方差
+        std_e_distance = get_variance(cor_eu_metrics)
+
+        # 计算所有类别的原是距离方差
+        std_all_e_distance = torch.var(torch.sqrt(metric)).item()
+        # 计算非对应类别的原是距离方差
+        std_nocor_e_distance = (self.class_num * std_all_e_distance - std_e_distance) / (self.class_num - 1)
+
+        std_tables = torch.ones_like(metric) * std_nocor_e_distance
+        std_tables = Variable(std_tables).cuda()
+        std_tables.scatter_(1, torch.unsqueeze(label, dim=-1), std_e_distance)
+
+        kernal_metric = torch.exp(-1.0 * metric / std_tables)
         # Corresponding kernal metric calculating
         cor_metrics = []
         for i in range(kernal_metric.size(0)):

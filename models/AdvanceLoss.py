@@ -155,7 +155,7 @@ class VarKernalMetricLogits(nn.Module):
         # Return data
         train_logits = 3.0 * self.scale * kernal_metric
 
-        return train_logits, metric
+        return train_logits, torch.exp(-1.0 * metric)
         # return train_logits
 
 
